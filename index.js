@@ -1,14 +1,12 @@
 const express = require('express')
-const cors = require('cors')
 const app = express()
 
+const cors = require('cors');
+app.use(cors({optionsSuccessStatus: 200}))
+app.enable('trust proxy', true)
 
-app.use(cors({
-    optionsSuccessStatus:200
-}))
-
-
-app.get('/api/whoiam', (req, res)=>{    
+app.get('/api/whoami', (req, res)=>{    
+    
     res.json({
         ipaddress: req.ip,
         language: req.headers['accept-language'],
@@ -23,4 +21,4 @@ app.get('/', (req, res)=>{
 
 
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
